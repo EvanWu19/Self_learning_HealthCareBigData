@@ -3,18 +3,19 @@
 # Requires PowerShell 7 or newer
 # Parse-time checks:
 #   • Ensures script is run with pwsh 7+
-#   • Adds a –Test N switch (optional)
+#   • Adds -Test, -Throttle and -MaxSizeMB switches (optional)
 
 #requires -Version 7.0
 
 param(
-    [int]$Test = 0          # e.g.  pwsh .\upload_fhir_files.ps1 -Test 20
+    [int]$Test = 0,                 # e.g.  pwsh .\upload_fhir_files.ps1 -Test 20
+    [int]$Throttle = 4,             # parallel workers
+    [int]$MaxSizeMB = 5             # skip files larger than this
 )
 
 #── USER CONFIG ────────────────────────────────────────────────────────
 $BUNDLE_DIR = '//Desktop-family/K/synthea_out/fhir'          # adjust as needed
 $FHIR_BASE  = 'http://localhost:8080/fhir/'  # KEEP the trailing slash
-$Throttle   = 1                             # parallel workers to start
 
 # Make this script’s folder a module location (so runspaces see it)
 $env:PSModulePath = "$PSScriptRoot;$env:PSModulePath"
@@ -25,7 +26,8 @@ $success   = 0
 $failure   = 0
 
 #── GATHER FILES ───────────────────────────────────────────────────────
-$files = Get-ChildItem -Path $BUNDLE_DIR -Filter *.json
+$files = Get-ChildItem -Path $BUNDLE_DIR -Filter *.json |
+         Where-Object { $_.Length -lt ($MaxSizeMB * 1MB) }
 if ($Test -gt 0) { $files = $files | Select-Object -First $Test }
 
 #── MAIN PARALLEL LOOP ─────────────────────────────────────────────────
