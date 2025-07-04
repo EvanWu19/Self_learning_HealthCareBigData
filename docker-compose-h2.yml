@@ -1,0 +1,16 @@
+services:
+  hapi:
+    image: hapiproject/hapi:v8.2.0-1
+    container_name: hapi-fhir
+    ports:
+      - "8080:8080"
+    volumes:
+      - hapi-data:/data/hapi
+    environment:
+      spring.datasource.url: jdbc:h2:file:/data/hapi/h2db
+      spring.datasource.driverClassName: org.h2.Driver
+      hapi.fhir.scheduler.enabled: "false"
+      hapi.fhir.validation.requests_enabled: "false"
+volumes:
+  hapi-data:
+
