@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:12-alpine          # ← 12.x is the key
+    container_name: hapi-pg
+    environment:
+      POSTGRES_DB:     hapi
+      POSTGRES_USER:   hapi
+      POSTGRES_PASSWORD: hapi
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hapi:
+    image: hapiproject/hapi:v8.2.0-1
+    container_name: hapi-fhir
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      spring.datasource.url: jdbc:postgresql://db:5432/hapi
+      spring.datasource.username: hapi
+      spring.datasource.password: hapi
+      spring.datasource.driverClassName: org.postgresql.Driver
+      # optional performance toggles you used before …
+      hapi.fhir.allow_inline_match_url_references: "true"
+      hapi.fhir.validation.requests_enabled: "false"
+
+      # ----- Option B: Flyway migration  --------------
+      SPRING_FLYWAY_ENABLED: "true"
+      SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
+volumes:
+  pgdata:
