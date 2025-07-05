@@ -2,6 +2,8 @@ services:
   hapi:
     image: hapiproject/hapi:v8.2.0-1
     container_name: hapi-fhir
+    user: "0"
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
@@ -11,6 +13,11 @@ services:
       spring.datasource.driverClassName: org.h2.Driver
       hapi.fhir.scheduler.enabled: "false"
       hapi.fhir.validation.requests_enabled: "false"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/fhir/metadata"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 volumes:
   hapi-data:
 
