@@ -2,6 +2,7 @@ services:
   hapi:
     image: hapiproject/hapi:v8.2.0-1
     container_name: hapi-fhir
+    user: "0:0"
     ports:
       - "8080:8080"
     volumes:
