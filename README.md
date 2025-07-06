@@ -10,6 +10,9 @@ Two Docker configurations are provided:
 Use the PowerShell script `upload_fhir_files.ps1` to upload bundles. Large bundles are skipped by default and uploads run in parallel.
 
 
+A minimal `requirements.txt` is included to install Jupyter for running the notebooks.
+
+
 
 ## License
 
@@ -43,8 +46,8 @@ You can stop and restart this container to free memory while keeping the `hapi-d
 Execute the notebooks in order:
 1. `01_synthea_setup.ipynb` – build Synthea and generate patient bundles
 2. `02_hapi_fhir_server_setup_powershell.ipynb` – start the HAPI‑FHIR server and verify it is running
-3. `02_hapi_fhir_synthea_load_powershell.ipynb` – upload bundles using PowerShell
-4. `03_synthea_data_load.ipynb` – alternative example that also logs with PowerShell
+3. `03_synthea_data_load.ipynb` – upload bundles using PowerShell
+99. `02_hapi_fhir_synthea_load_powershell.ipynb` – alternative onworking example that will chose PostgreSQL DB
 
 ## Upload FHIR bundles
 `upload_fhir_files.ps1` reads JSON bundles from `$BUNDLE_DIR` and posts them to `$FHIR_BASE`.
