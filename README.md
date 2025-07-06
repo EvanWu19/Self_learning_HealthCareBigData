@@ -9,6 +9,12 @@ Two Docker configurations are provided:
 
 Use the PowerShell script `upload_fhir_files.ps1` to upload bundles. Large bundles are skipped by default and uploads run in parallel.
 
+
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 ## Prerequisites
 - Windows 10/11 with [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [PowerShell 7](https://aka.ms/powershell) or newer
@@ -50,3 +56,4 @@ pwsh -ExecutionPolicy Bypass -File .\upload_fhir_files.ps1 -Throttle 4 |
   Tee-Object -FilePath upload_log.txt
 ```
 `$MaxSizeMB` and `$Throttle` can be passed as parameters. The script modifies `$env:PSModulePath` so it can be run from any location.
+
