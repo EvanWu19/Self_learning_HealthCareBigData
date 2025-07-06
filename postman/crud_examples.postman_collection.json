@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "FHIR CRUD Examples",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Patient",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Content-Type", "value": "application/fhir+json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"123\"\n}"
+        },
+        "url": "{{baseUrl}}/Patient"
+      }
+    },
+    {
+      "name": "Read Patient",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/Patient/123"
+      }
+    },
+    {
+      "name": "Update Patient",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {"key": "Content-Type", "value": "application/fhir+json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"123\",\n  \"active\": true\n}"
+        },
+        "url": "{{baseUrl}}/Patient/123"
+      }
+    },
+    {
+      "name": "Patch Patient",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {"key": "Content-Type", "value": "application/json-patch+json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\n  \"op\": \"replace\",\n  \"path\": \"/active\",\n  \"value\": false\n}]"
+        },
+        "url": "{{baseUrl}}/Patient/123"
+      }
+    },
+    {
+      "name": "Delete Patient",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/Patient/123"
+      }
+    }
+  ]
+}

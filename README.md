@@ -9,3 +9,9 @@ Two Docker configurations are provided:
 
 Use the PowerShell script `upload_fhir_files.ps1` to upload bundles. Large bundles are skipped by default and uploads run in parallel.
 
+
+## Postman Examples
+
+The `postman/` directory contains an exported environment (`fhir_dev.postman_environment.json`) and a collection demonstrating five basic FHIR CRUD operations. The same requests are mirrored in `2025-06-30_postman.ipynb` using cURL commands.
+
+Additional notes about the calls can be found in `notes/2025-06-30_postman.md`.
