@@ -10,7 +10,6 @@ Two Docker configurations are provided:
 Use the PowerShell script `upload_fhir_files.ps1` to upload bundles. Large bundles are skipped by default and uploads run in parallel.
 
 
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
@@ -57,3 +56,8 @@ pwsh -ExecutionPolicy Bypass -File .\upload_fhir_files.ps1 -Throttle 4 |
 ```
 `$MaxSizeMB` and `$Throttle` can be passed as parameters. The script modifies `$env:PSModulePath` so it can be run from any location.
 
+## Postman Examples
+
+The `postman/` directory contains an exported environment (`fhir_dev.postman_environment.json`) and a collection demonstrating five basic FHIR CRUD operations. The same requests are mirrored in `2025-06-30_postman.ipynb` using cURL commands.
+
+Additional notes about the calls can be found in `notes/2025-06-30_postman.md`.
