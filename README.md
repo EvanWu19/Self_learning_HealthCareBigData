@@ -9,3 +9,5 @@ Two Docker configurations are provided:
 
 Use the PowerShell script `upload_fhir_files.ps1` to upload bundles. Large bundles are skipped by default and uploads run in parallel.
 
+A minimal `requirements.txt` is included to install Jupyter for running the notebooks.
+
